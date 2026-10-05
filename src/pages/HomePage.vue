@@ -1,3 +1,24 @@
+<script setup lang="ts">
+import {ref} from 'vue';
+import data from '../data.json';
+import {StarOffIcon} from '@lucide/vue';
+import {StarIcon} from '@heroicons/vue/24/solid';
+import {PlusIcon} from '@heroicons/vue/24/outline';
+import MovieItem from '../components/MovieItem.vue';
+import BaseButton from '../components/BaseButton.vue';
+
+type Movie = {
+	id: number;
+	title: string;
+	image: string;
+	genres: string[];
+	description: string;
+	rating: number;
+};
+
+const movies = ref<Movie[]>(data.items);
+</script>
+
 <template>
 	<div class="max-w-6xl px-4 py-10 mx-auto text-gray-100">
 		<div class="flex flex-wrap items-end justify-between gap-4 mb-6">
@@ -48,24 +69,3 @@
 		</div>
 	</div>
 </template>
-
-<script setup lang="ts">
-import {ref} from 'vue';
-import data from '../data.json';
-import {StarOffIcon} from '@lucide/vue';
-import {StarIcon} from '@heroicons/vue/24/solid';
-import {PlusIcon} from '@heroicons/vue/24/outline';
-import MovieItem from '../components/MovieItem.vue';
-import BaseButton from '../components/BaseButton.vue';
-
-type Movie = {
-	id: number;
-	title: string;
-	image: string;
-	genres: string[];
-	description: string;
-	rating: number;
-};
-
-const movies = ref<Movie[]>(data.items);
-</script>

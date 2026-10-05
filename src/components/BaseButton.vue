@@ -1,15 +1,3 @@
-<template>
-	<button
-		:type="type"
-		:class="[
-			'flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white transition rounded-lg focus:outline-none focus-visible:ring-2',
-			variantClasses[variant],
-		]"
-	>
-		<slot />
-	</button>
-</template>
-
 <script setup lang="ts">
 type Variant = 'primary' | 'outline';
 
@@ -29,3 +17,15 @@ const variantClasses: Record<Variant, string> = {
 	outline: 'border border-gray-600 hover:bg-gray-800 focus-visible:ring-indigo-400',
 };
 </script>
+
+<template>
+	<button
+		:type="type"
+		:class="[
+			'flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white transition rounded-lg focus:outline-none focus-visible:ring-2',
+			variantClasses[variant],
+		]"
+	>
+		<slot />
+	</button>
+</template>

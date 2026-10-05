@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import {computed} from 'vue';
+import {StarIcon} from '@heroicons/vue/24/solid';
+
+const props = defineProps<{
+	rating: number;
+}>();
+
+const notRated = computed(() => Boolean(!props.rating));
+</script>
+
 <template>
 	<span
 		:class="[
@@ -9,14 +20,3 @@
 		{{ notRated ? '–' : rating }}
 	</span>
 </template>
-
-<script setup lang="ts">
-import {computed} from 'vue';
-import {StarIcon} from '@heroicons/vue/24/solid';
-
-const props = defineProps<{
-	rating: number;
-}>();
-
-const notRated = computed(() => Boolean(!props.rating));
-</script>

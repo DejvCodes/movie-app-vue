@@ -1,3 +1,21 @@
+<script setup lang="ts">
+import {StarIcon} from '@heroicons/vue/24/solid';
+import MovieStarRating from './MovieStarRating.vue';
+
+export interface Movie {
+	id: number;
+	title: string;
+	image: string;
+	genres: string[];
+	description: string;
+	rating: number;
+}
+
+defineProps<{
+	movie: Movie;
+}>();
+</script>
+
 <template>
 	<article class="flex flex-col overflow-hidden border border-gray-800 rounded-2xl bg-slate-900">
 		<!-- Movie image and rating -->
@@ -5,7 +23,7 @@
 			<img
 				:src="movie.image"
 				:alt="movie.title"
-				class="object-cover w-full h-64"
+				class="object-cover w-full h-60 sm:h-80"
 			/>
 			<MovieStarRating
 				:rating="movie.rating"
@@ -69,21 +87,3 @@
 		</div>
 	</article>
 </template>
-
-<script setup lang="ts">
-import {StarIcon} from '@heroicons/vue/24/solid';
-import MovieStarRating from './MovieStarRating.vue';
-
-export interface Movie {
-	id: number;
-	title: string;
-	image: string;
-	genres: string[];
-	description: string;
-	rating: number;
-}
-
-defineProps<{
-	movie: Movie;
-}>();
-</script>
