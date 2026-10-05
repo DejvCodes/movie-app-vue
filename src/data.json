@@ -1,0 +1,28 @@
+{
+	"items": [
+		{
+			"id": 1,
+			"title": "Avatar",
+			"image": "/images/avatar.jpg",
+			"genres": ["Action", "Adventure", "Sci-Fi"],
+			"description": "A paralysed marine sent to the distant moon Pandora is torn between following orders and protecting the world he has come to call home.",
+			"rating": 4
+		},
+		{
+			"id": 2,
+			"title": "Madagascar",
+			"image": "/images/madagascar.jpg",
+			"genres": ["Animation", "Comedy", "Family"],
+			"description": "Four pampered friends from a New York zoo end up stranded on a wild tropical island and have to figure out how to survive outside their cages.",
+			"rating": 4
+		},
+		{
+			"id": 3,
+			"title": "Ice Age",
+			"image": "/images/ice-age.jpg",
+			"genres": ["Animation", "Adventure", "Comedy"],
+			"description": "An unlikely trio of prehistoric animals teams up to bring a lost human baby back to his family as the ice closes in.",
+			"rating": 3
+		}
+	]
+}
