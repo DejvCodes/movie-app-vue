@@ -17,6 +17,7 @@ type Movie = {
 };
 
 const movies = ref<Movie[]>(data.items);
+
 </script>
 
 <template>

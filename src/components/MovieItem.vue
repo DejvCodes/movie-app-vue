@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {StarIcon} from '@heroicons/vue/24/solid';
+import {PencilIcon, TrashIcon} from '@heroicons/vue/24/outline';
 import MovieStarRating from './MovieStarRating.vue';
 
 export interface Movie {
@@ -69,18 +70,14 @@ defineProps<{
 						class="flex items-center justify-center w-10 h-10 text-indigo-300 transition rounded-lg bg-indigo-900/60 hover:bg-indigo-800"
 						aria-label="Edit movie"
 					>
-						<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-							<path d="M17 3a2.85 2.85 0 0 1 4 4L7.5 20.5 2 22l1.5-5.5Z" />
-						</svg>
+						<PencilIcon class="w-4 h-4" aria-hidden="true" />
 					</button>
 					<button
 						type="button"
 						class="flex items-center justify-center w-10 h-10 text-red-400 transition rounded-lg bg-red-900/40 hover:bg-red-900/70"
 						aria-label="Delete movie"
 					>
-						<svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-							<path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v6M14 11v6" />
-						</svg>
+						<TrashIcon class="w-4 h-4" aria-hidden="true" />
 					</button>
 				</div>
 			</div>
