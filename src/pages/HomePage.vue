@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {ref} from 'vue';
 import data from '../data.json';
+import {computed, ref} from 'vue';
 import {StarOffIcon} from '@lucide/vue';
 import {StarIcon} from '@heroicons/vue/24/solid';
 import {PlusIcon} from '@heroicons/vue/24/outline';
@@ -18,6 +18,28 @@ type Movie = {
 
 const movies = ref<Movie[]>(data.items);
 
+const totalMovies = computed(() => movies.value.length);
+
+const averageRating = computed(() => {
+	return movies.value.reduce((sum, movie) => sum + movie.rating, 0) / (movies.value.length || 1);
+});
+
+const updateRating = (id: number, rating: number) => {
+	movies.value = movies.value.map((movie) => {
+		if (movie.id === id) {
+			movie.rating = rating;
+		}
+		return movie;
+	});
+};
+
+const removeRating = () => {
+	movies.value = movies.value.map((movie) => {
+		movie.rating = 0;
+		return movie;
+	});
+};
+
 </script>
 
 <template>
@@ -32,14 +54,15 @@ const movies = ref<Movie[]>(data.items);
 					<div class="rounded-full border border-gray-700 bg-gray-800 px-4 py-1.5 text-sm text-gray-300">
 						Total movies
 						<span class="ml-1 font-semibold text-white">
-							x
+							{{ totalMovies }}
 						</span>
 					</div>
 					<div
 						class="flex items-center gap-1.5 rounded-full border border-gray-700 bg-gray-800 px-4 py-1.5 text-sm text-gray-300">
 						<StarIcon class="w-4 h-4 text-yellow-400" />
 						Average rating
-						<span class="ml-1 font-semibold text-white">x
+						<span class="ml-1 font-semibold text-white">
+							{{ averageRating.toFixed(1) }}
 						</span>
 					</div>
 				</div>
@@ -47,7 +70,7 @@ const movies = ref<Movie[]>(data.items);
 
 			<div class="flex gap-3">
 				<!-- Remove Rating button -->
-				<BaseButton variant="outline">
+				<BaseButton variant="outline" @click="removeRating">
 					<StarOffIcon class="w-4 h-4" :stroke-width="1.5" />
 					Remove Rating
 				</BaseButton>
@@ -66,6 +89,7 @@ const movies = ref<Movie[]>(data.items);
 				v-for="movie in movies"
 				:key="movie.id"
 				:movie="movie"
+				@rate="updateRating"
 			/>
 		</div>
 	</div>

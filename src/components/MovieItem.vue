@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {StarIcon} from '@heroicons/vue/24/solid';
-import {PencilIcon, TrashIcon} from '@heroicons/vue/24/outline';
 import MovieStarRating from './MovieStarRating.vue';
+import {PencilIcon, TrashIcon} from '@heroicons/vue/24/outline';
 
 export interface Movie {
 	id: number;
@@ -12,9 +12,17 @@ export interface Movie {
 	rating: number;
 }
 
-defineProps<{
+const props = defineProps<{
 	movie: Movie;
 }>();
+
+const emit = defineEmits<{
+	rate: [id: number, rating: number];
+}>();
+
+const updateRating = (rating: number) => {
+	emit('rate', props.movie.id, rating);
+};
 </script>
 
 <template>
@@ -55,12 +63,18 @@ defineProps<{
 				<div class="flex items-center gap-2 text-sm text-gray-300">
 					<span>Rating ({{ movie.rating }}/5)</span>
 					<div class="flex gap-0.5">
-						<StarIcon
+						<button
 							v-for="star in 5"
 							:key="star"
-							:class="['w-4 h-4', star <= movie.rating ? 'text-yellow-400' : 'text-gray-600']"
-							aria-hidden="true"
-						/>
+							type="button"
+							class="cursor-pointer disabled:cursor-default"
+							:aria-label="`Rate ${star} of 5`"
+							:disabled="star === movie.rating"
+							@click="updateRating(star)"
+						>
+							<StarIcon :class="['w-4 h-4', star <= movie.rating ? 'text-yellow-400' : 'text-gray-600']"
+								aria-hidden="true" />
+						</button>
 					</div>
 				</div>
 
