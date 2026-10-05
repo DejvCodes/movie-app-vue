@@ -40,6 +40,10 @@ const removeRating = () => {
 	});
 };
 
+const removeMovie = (id: number) => {
+	movies.value = movies.value.filter((movie) => movie.id !== id);
+};
+
 </script>
 
 <template>
@@ -90,6 +94,7 @@ const removeRating = () => {
 				:key="movie.id"
 				:movie="movie"
 				@rate="updateRating"
+				@delete="removeMovie"
 			/>
 		</div>
 	</div>

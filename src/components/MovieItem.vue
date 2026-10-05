@@ -18,10 +18,15 @@ const props = defineProps<{
 
 const emit = defineEmits<{
 	rate: [id: number, rating: number];
+	delete: [id: number];
 }>();
 
 const updateRating = (rating: number) => {
 	emit('rate', props.movie.id, rating);
+};
+
+const deleteMovie = (id: number) => {
+	emit('delete', id);
 };
 </script>
 
@@ -90,6 +95,7 @@ const updateRating = (rating: number) => {
 						type="button"
 						class="flex items-center justify-center w-10 h-10 text-red-400 transition rounded-lg bg-red-900/40 hover:bg-red-900/70"
 						aria-label="Delete movie"
+						@click="deleteMovie(movie.id)"
 					>
 						<TrashIcon class="w-4 h-4" aria-hidden="true" />
 					</button>
