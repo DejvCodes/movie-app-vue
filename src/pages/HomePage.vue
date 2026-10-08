@@ -8,6 +8,9 @@ import {PlusIcon} from '@heroicons/vue/24/outline';
 import MovieItem from '../components/MovieItem.vue';
 import BaseButton from '../components/BaseButton.vue';
 import ConfirmDialog from '../components/ConfirmDialog.vue';
+import {useToast} from '../composables/useToast';
+
+const {showToast} = useToast();
 
 const movies = ref<Movie[]>(data.items);
 const movieToDelete = ref<Movie | null>(null);
@@ -32,6 +35,8 @@ const removeRating = () => {
 		movie.rating = 0;
 		return movie;
 	});
+
+	showToast('All ratings removed');
 };
 
 const askToRemoveMovie = (id: number) => {
@@ -46,10 +51,11 @@ const confirmRemoveMovie = () => {
 	if (movieToDelete.value) {
 		const id = movieToDelete.value.id;
 		movies.value = movies.value.filter((movie) => movie.id !== id);
+
+		showToast(`${movieToDelete.value.title} deleted`);
 	}
 	movieToDelete.value = null;
 };
-
 </script>
 
 <template>
