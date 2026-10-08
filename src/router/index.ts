@@ -1,6 +1,6 @@
+import {createRouter, createWebHistory} from 'vue-router';
 import HomePage from '../pages/HomePage.vue';
 import MovieDetailPage from '../pages/MovieDetailPage.vue';
-import {createRouter, createWebHistory} from 'vue-router';
 
 const router = createRouter({
 	history: createWebHistory(),
@@ -16,6 +16,11 @@ const router = createRouter({
 			name: 'movie',
 			component: MovieDetailPage,
 			props: (route) => ({ id: Number(route.params.id) }),
+		},
+		{
+			path: '/:pathMatch(.*)*',
+			name: 'not-found',
+			redirect: { name: 'home' },
 		},
 	],
 });
