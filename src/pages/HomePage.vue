@@ -72,16 +72,44 @@ const confirmRemoveMovie = () => {
 			<BaseButton
 				variant="outline"
 				:aria-label="isDark ? 'Switch to light mode' : 'Switch to dark mode'"
+				class="!px-2.5"
 				@click="toggleDarkMode"
 			>
-				<SunIcon v-if="isDark" class="w-5 h-5" />
-				<MoonIcon v-else class="w-5 h-5" />
+				<SunIcon
+					v-if="isDark"
+					class="w-5 h-5"
+				/>
+				<MoonIcon
+					v-else
+					class="w-5 h-5"
+				/>
 			</BaseButton>
 		</div>
 
-		<div class="flex flex-wrap items-end justify-between gap-4 mb-6">
+		<div class="flex flex-wrap items-end justify-between gap-4 mb-5">
+			<div class="flex gap-3">
+				<!-- Remove Rating button -->
+				<BaseButton
+					variant="outline"
+					@click="removeRating"
+				>
+					<StarOffIcon class="w-4 h-4" :stroke-width="1.5" />
+					Remove Rating
+				</BaseButton>
+
+				<!-- Add Movie button -->
+				<BaseButton
+					variant="primary"
+				>
+					<PlusIcon class="w-5 h-5" />
+					Add Movie
+				</BaseButton>
+			</div>
+
+			<!-- Stats section -->
 			<div class="flex flex-wrap gap-3">
-				<div class="rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
+				<div
+					class="rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
 					Total movies
 					<span class="ml-1 font-semibold text-gray-900 dark:text-white">
 						{{ totalMovies }}
@@ -95,20 +123,6 @@ const confirmRemoveMovie = () => {
 						{{ averageRating.toFixed(1) }}
 					</span>
 				</div>
-			</div>
-
-			<div class="flex gap-3">
-				<!-- Remove Rating button -->
-				<BaseButton variant="outline" @click="removeRating">
-					<StarOffIcon class="w-4 h-4" :stroke-width="1.5" />
-					Remove Rating
-				</BaseButton>
-
-				<!-- Add Movie button -->
-				<BaseButton variant="primary">
-					<PlusIcon class="w-5 h-5" />
-					Add Movie
-				</BaseButton>
 			</div>
 		</div>
 
