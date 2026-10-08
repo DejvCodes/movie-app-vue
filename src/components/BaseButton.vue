@@ -1,5 +1,5 @@
 <script setup lang="ts">
-type Variant = 'primary' | 'outline';
+type Variant = 'primary' | 'outline' | 'danger';
 
 withDefaults(
 	defineProps<{
@@ -15,6 +15,7 @@ withDefaults(
 const variantClasses: Record<Variant, string> = {
 	primary: 'bg-indigo-500 shadow-lg shadow-indigo-500/30 hover:bg-indigo-400 focus-visible:ring-indigo-300',
 	outline: 'border border-gray-600 hover:bg-gray-800 focus-visible:ring-indigo-400',
+	danger: 'bg-red-600 shadow-lg shadow-red-600/30 hover:bg-red-500 focus-visible:ring-red-300',
 };
 </script>
 

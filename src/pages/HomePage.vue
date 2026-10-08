@@ -6,6 +6,7 @@ import {StarIcon} from '@heroicons/vue/24/solid';
 import {PlusIcon} from '@heroicons/vue/24/outline';
 import MovieItem from '../components/MovieItem.vue';
 import BaseButton from '../components/BaseButton.vue';
+import ConfirmDialog from '../components/ConfirmDialog.vue';
 
 type Movie = {
 	id: number;
@@ -17,6 +18,7 @@ type Movie = {
 };
 
 const movies = ref<Movie[]>(data.items);
+const movieToDelete = ref<Movie | null>(null);
 
 const totalMovies = computed(() => movies.value.length);
 
@@ -40,14 +42,26 @@ const removeRating = () => {
 	});
 };
 
-const removeMovie = (id: number) => {
-	movies.value = movies.value.filter((movie) => movie.id !== id);
+const askToRemoveMovie = (id: number) => {
+	movieToDelete.value = movies.value.find((movie) => movie.id === id) ?? null;
+};
+
+const cancelRemoveMovie = () => {
+	movieToDelete.value = null;
+};
+
+const confirmRemoveMovie = () => {
+	if (movieToDelete.value) {
+		const id = movieToDelete.value.id;
+		movies.value = movies.value.filter((movie) => movie.id !== id);
+	}
+	movieToDelete.value = null;
 };
 
 </script>
 
 <template>
-	<div class="max-w-6xl px-4 py-10 mx-auto text-gray-100">
+	<div class="max-w-6xl px-4 mx-auto text-gray-100 py-7">
 		<div class="flex flex-wrap items-end justify-between gap-4 mb-6">
 			<div>
 				<!-- Page header -->
@@ -94,8 +108,20 @@ const removeMovie = (id: number) => {
 				:key="movie.id"
 				:movie="movie"
 				@rate="updateRating"
-				@delete="removeMovie"
+				@delete="askToRemoveMovie"
 			/>
 		</div>
+
+		<!-- Delete confirmation -->
+		<ConfirmDialog
+			:open="movieToDelete !== null"
+			title="Delete movie?"
+			confirm-label="Delete"
+			@confirm="confirmRemoveMovie"
+			@cancel="cancelRemoveMovie">
+			Are you sure you want to delete
+			<span class="font-semibold text-white">{{ movieToDelete?.title }}</span>?
+			This action cannot be undone.
+		</ConfirmDialog>
 	</div>
 </template>
