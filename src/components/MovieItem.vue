@@ -2,15 +2,7 @@
 import {StarIcon} from '@heroicons/vue/24/solid';
 import MovieStarRating from './MovieStarRating.vue';
 import {PencilIcon, TrashIcon} from '@heroicons/vue/24/outline';
-
-export interface Movie {
-	id: number;
-	title: string;
-	image: string;
-	genres: string[];
-	description: string;
-	rating: number;
-}
+import type {Movie} from '../types/movie';
 
 const props = defineProps<{
 	movie: Movie;

@@ -2,20 +2,12 @@
 import data from '../data.json';
 import {computed, ref} from 'vue';
 import {StarOffIcon} from '@lucide/vue';
+import type {Movie} from '../types/movie';
 import {StarIcon} from '@heroicons/vue/24/solid';
 import {PlusIcon} from '@heroicons/vue/24/outline';
 import MovieItem from '../components/MovieItem.vue';
 import BaseButton from '../components/BaseButton.vue';
 import ConfirmDialog from '../components/ConfirmDialog.vue';
-
-type Movie = {
-	id: number;
-	title: string;
-	image: string;
-	genres: string[];
-	description: string;
-	rating: number;
-};
 
 const movies = ref<Movie[]>(data.items);
 const movieToDelete = ref<Movie | null>(null);
