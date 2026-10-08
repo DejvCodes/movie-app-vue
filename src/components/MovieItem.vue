@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Movie } from '../types/movie';
-import { StarIcon } from '@heroicons/vue/24/solid';
+import StarRating from './StarRating.vue';
 import MovieStarRating from './MovieStarRating.vue';
 import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/vue/24/outline';
 
@@ -59,20 +59,10 @@ const deleteMovie = (id: number) => {
 			<div class="flex flex-wrap items-center justify-between gap-3 pt-4 mt-auto border-t border-gray-200 dark:border-gray-800">
 				<div class="flex flex-col gap-0.5 text-sm text-gray-600 dark:text-gray-300">
 					<span class="text-[13px]">Rating ({{ movie.rating }}/5)</span>
-					<div class="flex gap-0.5">
-						<button
-							v-for="star in 5"
-							:key="star"
-							type="button"
-							class="cursor-pointer disabled:cursor-default"
-							:aria-label="`Rate ${star} of 5`"
-							:disabled="star === movie.rating"
-							@click="updateRating(star)"
-						>
-							<StarIcon :class="['w-5 h-5', star <= movie.rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600']"
-								aria-hidden="true" />
-						</button>
-					</div>
+					<StarRating
+						:rating="movie.rating"
+						@rate="updateRating"
+					/>
 				</div>
 
 				<div class="flex gap-2">

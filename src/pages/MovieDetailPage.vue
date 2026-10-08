@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import data from '../data.json';
 import type { Movie } from '../types/movie';
-import { StarIcon } from '@heroicons/vue/24/solid';
+import StarRating from '../components/StarRating.vue';
 import { ArrowLeftIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps<{
@@ -44,16 +44,13 @@ const movie = computed(() => movies.find((m) => m.id === props.id));
 				</h1>
 
 				<div class="flex items-center justify-center gap-3 mt-4 md:justify-start">
-					<div class="flex gap-0.5" aria-hidden="true">
-						<StarIcon
-							v-for="star in 5"
-							:key="star"
-							:class="['w-5 h-5', star <= movie.rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600']"
-						/>
-					</div>
 					<span class="text-sm text-gray-500 dark:text-gray-400">
 						Rating ({{ movie.rating }}/5)
 					</span>
+					<StarRating
+						:rating="movie.rating"
+						readonly
+					/>
 				</div>
 
 				<p class="mt-4 text-lg leading-relaxed text-gray-600 dark:text-gray-300">
