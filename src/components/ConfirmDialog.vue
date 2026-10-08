@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {ref, watch} from 'vue';
+import { ref, watch } from 'vue';
 import BaseButton from './BaseButton.vue';
 
 const props = withDefaults(
@@ -41,7 +41,7 @@ watch(
 	},
 );
 
-// Click on the backdrop (outside the dialog content) closes the dialog
+// Handle click on the backdrop (outside the dialog content)
 const onBackdropClick = (event: MouseEvent) => {
 	if (event.target === dialog.value) {
 		emit('cancel');
@@ -52,9 +52,8 @@ const onBackdropClick = (event: MouseEvent) => {
 <template>
 	<dialog ref="dialog"
 		class="w-full max-w-md p-0 text-gray-100 border border-gray-800 rounded-2xl bg-slate-900 backdrop:bg-black/60"
-		@cancel.prevent="emit('cancel')"
-		@click="onBackdropClick"
-	>
+		@cancel.prevent="cancel"
+		@click="onBackdropClick">
 		<div class="p-6">
 			<h2 class="text-xl font-bold text-white">
 				{{ title }}

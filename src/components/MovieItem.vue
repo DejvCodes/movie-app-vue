@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import {StarIcon} from '@heroicons/vue/24/solid';
+import type { Movie } from '../types/movie';
+import { StarIcon } from '@heroicons/vue/24/solid';
 import MovieStarRating from './MovieStarRating.vue';
-import {PencilIcon, TrashIcon} from '@heroicons/vue/24/outline';
-import type {Movie} from '../types/movie';
+import { PencilIcon, TrashIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps<{
 	movie: Movie;

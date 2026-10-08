@@ -25,8 +25,7 @@ const variantClasses: Record<Variant, string> = {
 		:class="[
 			'flex items-center gap-2 px-4 py-2 text-sm font-semibold text-white transition rounded-lg focus:outline-none focus-visible:ring-2',
 			variantClasses[variant],
-		]"
-	>
+		]">
 		<slot />
 	</button>
 </template>
