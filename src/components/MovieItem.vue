@@ -23,7 +23,7 @@ const deleteMovie = (id: number) => {
 </script>
 
 <template>
-	<article class="flex flex-col overflow-hidden border border-gray-800 rounded-2xl bg-slate-900">
+	<article class="flex flex-col overflow-hidden bg-white border border-gray-200 shadow-sm rounded-2xl dark:shadow-none dark:bg-slate-900 dark:border-gray-800">
 		<!-- Movie image and rating -->
 		<div class="relative">
 			<img
@@ -39,25 +39,25 @@ const deleteMovie = (id: number) => {
 
 		<!-- Movie details -->
 		<div class="flex flex-col flex-1 p-5">
-			<h2 class="text-2xl font-bold text-white">
+			<h2 class="text-2xl font-bold text-gray-900 dark:text-white">
 				{{ movie.title }}
 			</h2>
 			<ul class="flex flex-wrap gap-2 mt-3">
 				<li
 					v-for="genre in movie.genres"
 					:key="genre"
-					class="px-3 py-0.5 text-sm rounded-full bg-indigo-900/60 text-indigo-200"
+					class="px-3 py-0.5 text-sm rounded-full text-indigo-700 bg-indigo-100 dark:bg-indigo-900/60 dark:text-indigo-200"
 				>
 					{{ genre }}
 				</li>
 			</ul>
 
-			<p class="my-4 leading-relaxed text-gray-300">
+			<p class="my-4 leading-relaxed text-gray-600 dark:text-gray-300">
 				{{ movie.description }}
 			</p>
 
-			<div class="flex items-center justify-between pt-4 mt-auto border-t border-gray-800">
-				<div class="flex items-center gap-2 text-sm text-gray-300">
+			<div class="flex items-center justify-between pt-4 mt-auto border-t border-gray-200 dark:border-gray-800">
+				<div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
 					<span>Rating ({{ movie.rating }}/5)</span>
 					<div class="flex gap-0.5">
 						<button
@@ -69,7 +69,7 @@ const deleteMovie = (id: number) => {
 							:disabled="star === movie.rating"
 							@click="updateRating(star)"
 						>
-							<StarIcon :class="['w-4 h-4', star <= movie.rating ? 'text-yellow-400' : 'text-gray-600']"
+							<StarIcon :class="['w-4 h-4', star <= movie.rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600']"
 								aria-hidden="true" />
 						</button>
 					</div>
@@ -78,14 +78,14 @@ const deleteMovie = (id: number) => {
 				<div class="flex gap-2">
 					<button
 						type="button"
-						class="flex items-center justify-center w-10 h-10 text-indigo-300 transition rounded-lg bg-indigo-900/60 hover:bg-indigo-800"
+						class="flex items-center justify-center w-10 h-10 text-indigo-600 transition bg-indigo-100 rounded-lg hover:bg-indigo-200 dark:text-indigo-300 dark:bg-indigo-900/60 dark:hover:bg-indigo-800"
 						aria-label="Edit movie"
 					>
 						<PencilIcon class="w-4 h-4" aria-hidden="true" />
 					</button>
 					<button
 						type="button"
-						class="flex items-center justify-center w-10 h-10 text-red-400 transition rounded-lg bg-red-900/40 hover:bg-red-900/70"
+						class="flex items-center justify-center w-10 h-10 text-red-600 transition bg-red-100 rounded-lg hover:bg-red-200 dark:text-red-400 dark:bg-red-900/40 dark:hover:bg-red-900/70"
 						aria-label="Delete movie"
 						@click="deleteMovie(movie.id)"
 					>

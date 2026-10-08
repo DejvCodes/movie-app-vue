@@ -51,14 +51,14 @@ const onBackdropClick = (event: MouseEvent) => {
 
 <template>
 	<dialog ref="dialog"
-		class="w-full max-w-md p-0 text-gray-100 border border-gray-800 rounded-2xl bg-slate-900 backdrop:bg-black/60"
+		class="w-full max-w-md p-0 text-gray-900 bg-white border border-gray-200 rounded-2xl dark:text-gray-100 dark:bg-slate-900 dark:border-gray-800 backdrop:bg-black/60"
 		@cancel.prevent="cancel"
 		@click="onBackdropClick">
 		<div class="p-6">
-			<h2 class="text-xl font-bold text-white">
+			<h2 class="text-xl font-bold text-gray-900 dark:text-white">
 				{{ title }}
 			</h2>
-			<div class="mt-2 text-gray-300">
+			<div class="mt-2 text-gray-600 dark:text-gray-300">
 				<slot />
 			</div>
 
