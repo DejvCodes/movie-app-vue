@@ -1,17 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Movie App Vue</title>
-  </head>
-  <body class="absolute w-screen h-screen bg-gray-200 dark:bg-gray-900">
-    <div
-			id="app"
-			class="w-screen h-screen"
-		/>
-		
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Movie App Vue</title>
+		<script>
+			// Apply the theme before the first paint to avoid a flash
+			try {
+				const theme = localStorage.getItem('theme');
+				if (theme === 'dark' || (!theme && matchMedia('(prefers-color-scheme: dark)').matches)) {
+					document.documentElement.classList.add('dark');
+				}
+			} catch {}
+		</script>
+	</head>
+	<body class="min-h-screen text-gray-900 bg-gray-100 dark:text-gray-100 dark:bg-gray-900">
+		<div id="app" class="min-h-screen"></div>
+
+		<script type="module" src="/src/main.ts"></script>
+	</body>
 </html>
