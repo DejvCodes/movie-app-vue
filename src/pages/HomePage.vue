@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import data from '../data.json';
-import {computed, ref} from 'vue';
-import {StarOffIcon} from '@lucide/vue';
-import type {Movie} from '../types/movie';
-import {StarIcon} from '@heroicons/vue/24/solid';
-import {PlusIcon} from '@heroicons/vue/24/outline';
+import { computed, ref } from 'vue';
+import { StarOffIcon } from '@lucide/vue';
+import type { Movie } from '../types/movie';
+import { StarIcon } from '@heroicons/vue/24/solid';
+import { PlusIcon } from '@heroicons/vue/24/outline';
 import MovieItem from '../components/MovieItem.vue';
 import BaseButton from '../components/BaseButton.vue';
 import ConfirmDialog from '../components/ConfirmDialog.vue';
-import {useToast} from '../composables/useToast';
+import { useToast } from '../composables/useToast';
 
-const {showToast} = useToast();
+const { showToast } = useToast();
 
 const movies = ref<Movie[]>(data.items);
 const movieToDelete = ref<Movie | null>(null);
@@ -116,7 +116,8 @@ const confirmRemoveMovie = () => {
 			title="Delete movie?"
 			confirm-label="Delete"
 			@confirm="confirmRemoveMovie"
-			@cancel="cancelRemoveMovie">
+			@cancel="cancelRemoveMovie"
+		>
 			Are you sure you want to delete
 			<span class="font-semibold text-white">{{ movieToDelete?.title }}</span>?
 			This action cannot be undone.
