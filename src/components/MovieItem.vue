@@ -52,7 +52,7 @@ const deleteMovie = (id: number) => {
 				</li>
 			</ul>
 
-			<p class="my-4 leading-relaxed text-gray-600 dark:text-gray-300">
+			<p class="my-4 leading-relaxed text-gray-600 text-[15px] dark:text-gray-300">
 				{{ movie.description }}
 			</p>
 
