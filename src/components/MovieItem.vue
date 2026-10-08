@@ -2,7 +2,7 @@
 import type { Movie } from '../types/movie';
 import { StarIcon } from '@heroicons/vue/24/solid';
 import MovieStarRating from './MovieStarRating.vue';
-import { PencilIcon, TrashIcon } from '@heroicons/vue/24/outline';
+import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps<{
 	movie: Movie;
@@ -56,9 +56,9 @@ const deleteMovie = (id: number) => {
 				{{ movie.description }}
 			</p>
 
-			<div class="flex items-center justify-between pt-4 mt-auto border-t border-gray-200 dark:border-gray-800">
-				<div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
-					<span>Rating ({{ movie.rating }}/5)</span>
+			<div class="flex flex-wrap items-center justify-between gap-3 pt-4 mt-auto border-t border-gray-200 dark:border-gray-800">
+				<div class="flex flex-col gap-0.5 text-sm text-gray-600 dark:text-gray-300">
+					<span class="text-[13px]">Rating ({{ movie.rating }}/5)</span>
 					<div class="flex gap-0.5">
 						<button
 							v-for="star in 5"
@@ -69,7 +69,7 @@ const deleteMovie = (id: number) => {
 							:disabled="star === movie.rating"
 							@click="updateRating(star)"
 						>
-							<StarIcon :class="['w-4 h-4', star <= movie.rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600']"
+							<StarIcon :class="['w-5 h-5', star <= movie.rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600']"
 								aria-hidden="true" />
 						</button>
 					</div>
@@ -91,6 +91,13 @@ const deleteMovie = (id: number) => {
 					>
 						<TrashIcon class="w-4 h-4" aria-hidden="true" />
 					</button>
+					<RouterLink
+						:to="{name: 'movie', params: {id: movie.id } }"
+						class="flex items-center justify-center w-10 h-10 text-blue-600 transition bg-blue-100 rounded-lg hover:bg-blue-200 dark:text-blue-300 dark:bg-blue-900/60 dark:hover:bg-blue-800"
+						aria-label="Movie detail"
+					>
+						<EyeIcon class="w-4 h-4" aria-hidden="true" />
+					</RouterLink>
 				</div>
 			</div>
 		</div>
