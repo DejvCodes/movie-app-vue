@@ -169,13 +169,10 @@ const confirmRemoveMovie = () => {
 		<ConfirmDialog
 			:open="movieToDelete !== null"
 			title="Delete movie?"
+			:item-name="movieToDelete?.title"
 			confirm-label="Delete"
 			@confirm="confirmRemoveMovie"
 			@cancel="cancelRemoveMovie"
-		>
-			Are you sure you want to delete
-			<span class="font-semibold text-gray-900 dark:text-white">{{ movieToDelete?.title }}</span>?
-			This action cannot be undone.
-		</ConfirmDialog>
+		/>
 	</div>
 </template>

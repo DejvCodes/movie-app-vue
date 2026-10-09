@@ -6,6 +6,7 @@ const props = withDefaults(
 	defineProps<{
 		open: boolean;
 		title: string;
+		itemName?: string;
 		confirmLabel?: string;
 		cancelLabel?: string;
 	}>(),
@@ -58,11 +59,18 @@ const onBackdropClick = (event: MouseEvent) => {
 			<h2 class="text-xl font-bold text-gray-900 dark:text-white">
 				{{ title }}
 			</h2>
-			<div class="mt-2 text-gray-600 dark:text-gray-300">
-				<slot />
-			</div>
+			<p class="mt-2 text-gray-600 dark:text-gray-300">
+				<template v-if="itemName">
+					Are you sure you want to delete
+					<span class="font-semibold text-gray-900 dark:text-white">{{ itemName }}</span>?
+				</template>
+				<template v-else>
+					Are you sure?
+				</template>
+				This action cannot be undone.
+			</p>
 
-			<div class="flex justify-end gap-3 mt-6">
+			<div class="flex justify-end gap-3 mt-4">
 				<BaseButton
 					variant="outline"
 					@click="cancel"
