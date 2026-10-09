@@ -6,7 +6,7 @@ const props = defineProps<{
 	rating: number;
 }>();
 
-const notRated = computed(() => Boolean(!props.rating));
+const notRated = computed(() => !props.rating);
 </script>
 
 <template>

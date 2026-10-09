@@ -20,8 +20,8 @@ const updateRating = (rating: number) => {
 	emit('rate', props.movie.id, rating);
 };
 
-const deleteMovie = (id: number) => {
-	emit('delete', id);
+const deleteMovie = () => {
+	emit('delete', props.movie.id);
 };
 </script>
 
@@ -37,6 +37,9 @@ const deleteMovie = (id: number) => {
 				<img
 					:src="movie.image"
 					:alt="movie.title"
+					width="800"
+					height="1040"
+					loading="lazy"
 					class="object-cover w-full transition duration-300 h-60 sm:h-80 hover:scale-105"
 				/>
 			</RouterLink>
@@ -96,7 +99,7 @@ const deleteMovie = (id: number) => {
 						type="button"
 						class="flex items-center justify-center w-10 h-10 text-red-600 transition bg-red-100 rounded-lg hover:bg-red-200 dark:text-red-400 dark:bg-red-900/40 dark:hover:bg-red-900/70"
 						:aria-label="`Delete ${movie.title}`"
-						@click="deleteMovie(movie.id)"
+						@click="deleteMovie"
 					>
 						<TrashIcon
 							class="w-4 h-4"
