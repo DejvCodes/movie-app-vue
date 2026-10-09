@@ -27,8 +27,12 @@ watchEffect(() => {
 		<!-- Back link -->
 		<RouterLink
 			:to="{ name: 'home' }"
-			class="inline-flex items-center self-start gap-1.5 text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">
-			<ArrowLeftIcon class="w-4 h-4" aria-hidden="true" />
+			class="inline-flex items-center self-start gap-1.5 text-sm text-gray-500 transition hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+		>
+			<ArrowLeftIcon
+				class="w-4 h-4"
+				aria-hidden="true"
+			/>
 			Back
 		</RouterLink>
 
@@ -41,7 +45,8 @@ watchEffect(() => {
 			<img
 				:src="movie.image"
 				:alt="movie.title"
-				class="object-cover w-full max-w-[16rem] mx-auto aspect-[3/4] rounded-2xl shadow-xl shadow-gray-900/10 dark:shadow-black/40 md:max-w-none" />
+				class="object-cover w-full max-w-[16rem] mx-auto aspect-[3/4] rounded-2xl shadow-xl shadow-gray-900/10 dark:shadow-black/40 md:max-w-none"
+			/>
 
 			<!-- Movie info -->
 			<div class="text-center md:text-left">
@@ -55,9 +60,7 @@ watchEffect(() => {
 
 				<!-- Rating -->
 				<div class="flex items-center justify-center gap-3 mt-4 md:justify-start">
-					<span class="text-sm text-gray-500 dark:text-gray-400">
-						Rating ({{ movie.rating }}/5)
-					</span>
+					<span class="text-sm text-gray-500 dark:text-gray-400">Rating ({{ movie.rating }}/5)</span>
 					<StarRating
 						:rating="movie.rating"
 						readonly

@@ -43,6 +43,7 @@ const deleteMovie = (id: number) => {
 			<MovieStarRating
 				:rating="movie.rating"
 				class="absolute top-3 right-3"
+				aria-hidden="true"
 			/>
 		</div>
 
@@ -75,6 +76,7 @@ const deleteMovie = (id: number) => {
 					<span class="text-[13px]">Rating ({{ movie.rating }}/5)</span>
 					<StarRating
 						:rating="movie.rating"
+						:label="`Rate ${movie.title}`"
 						@rate="updateRating"
 					/>
 				</div>
@@ -83,24 +85,33 @@ const deleteMovie = (id: number) => {
 					<button
 						type="button"
 						class="flex items-center justify-center w-10 h-10 text-indigo-600 transition bg-indigo-100 rounded-lg hover:bg-indigo-200 dark:text-indigo-300 dark:bg-indigo-900/60 dark:hover:bg-indigo-800"
-						aria-label="Edit movie"
+						:aria-label="`Edit ${movie.title}`"
 					>
-						<PencilIcon class="w-4 h-4" aria-hidden="true" />
+						<PencilIcon
+							class="w-4 h-4"
+							aria-hidden="true"
+						/>
 					</button>
 					<button
 						type="button"
 						class="flex items-center justify-center w-10 h-10 text-red-600 transition bg-red-100 rounded-lg hover:bg-red-200 dark:text-red-400 dark:bg-red-900/40 dark:hover:bg-red-900/70"
-						aria-label="Delete movie"
+						:aria-label="`Delete ${movie.title}`"
 						@click="deleteMovie(movie.id)"
 					>
-						<TrashIcon class="w-4 h-4" aria-hidden="true" />
+						<TrashIcon
+							class="w-4 h-4"
+							aria-hidden="true"
+						/>
 					</button>
 					<RouterLink
 						:to="detailRoute"
 						class="flex items-center justify-center w-10 h-10 text-blue-600 transition bg-blue-100 rounded-lg hover:bg-blue-200 dark:text-blue-300 dark:bg-blue-900/60 dark:hover:bg-blue-800"
-						aria-label="Movie detail"
+						:aria-label="`View ${movie.title}`"
 					>
-						<EyeIcon class="w-4 h-4" aria-hidden="true" />
+						<EyeIcon
+							class="w-4 h-4"
+							aria-hidden="true"
+						/>
 					</RouterLink>
 				</div>
 			</div>

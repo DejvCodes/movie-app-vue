@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import data from '@/data.json';
 import { computed, ref } from 'vue';
+import { APP_TITLE } from '@/constants';
 import { StarOffIcon } from '@lucide/vue';
 import type { Movie } from '@/types/movie';
 import { StarIcon } from '@heroicons/vue/24/solid';
@@ -17,6 +18,7 @@ const { isDark, toggleDarkMode } = useDarkMode();
 
 const movies = ref<Movie[]>(data.items);
 const movieToDelete = ref<Movie | null>(null);
+const isRemoveRatingOpen = ref(false);
 
 // Total number of movies
 const totalMovies = computed(() => movies.value.length);
@@ -39,12 +41,23 @@ const updateRating = (id: number, rating: number) => {
 	});
 };
 
-// Reset ratings of all movies to 0
-const removeRating = () => {
+// Open the remove rating confirmation
+const askToRemoveRating = () => {
+	isRemoveRatingOpen.value = true;
+};
+
+// Close the remove rating confirmation without removing
+const cancelRemoveRating = () => {
+	isRemoveRatingOpen.value = false;
+};
+
+// Reset ratings of all movies to 0 and close the confirmation
+const confirmRemoveRating = () => {
 	movies.value = movies.value.map((movie) => {
 		movie.rating = 0;
 		return movie;
 	});
+	isRemoveRatingOpen.value = false;
 
 	showToast('All ratings removed');
 };
@@ -76,7 +89,7 @@ const confirmRemoveMovie = () => {
 		<!-- Page header -->
 		<div class="flex items-center justify-between gap-4 mb-4">
 			<h1 class="text-4xl font-bold">
-				My Movies
+				{{ APP_TITLE }}
 			</h1>
 
 			<!-- Dark mode toggle -->
@@ -105,16 +118,17 @@ const confirmRemoveMovie = () => {
 				<BaseButton
 					variant="outline"
 					:disabled="!hasRatings"
-					@click="removeRating"
+					@click="askToRemoveRating"
 				>
-					<StarOffIcon class="w-4 h-4" :stroke-width="1.5" />
+					<StarOffIcon
+						class="w-4 h-4"
+						:stroke-width="1.5"
+					/>
 					Remove Rating
 				</BaseButton>
 
 				<!-- Add Movie button -->
-				<BaseButton
-					variant="primary"
-				>
+				<BaseButton variant="primary">
 					<PlusIcon class="w-5 h-5" />
 					Add Movie
 				</BaseButton>
@@ -122,15 +136,15 @@ const confirmRemoveMovie = () => {
 
 			<!-- Stats section -->
 			<div class="flex flex-wrap gap-3">
-				<div
-					class="rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
+				<div class="rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
 					Total movies
 					<span class="ml-1 font-semibold text-gray-900 dark:text-white">
 						{{ totalMovies }}
 					</span>
 				</div>
 				<div
-					class="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300">
+					class="flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-4 py-1.5 text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300"
+				>
 					<StarIcon class="w-4 h-4 text-yellow-400" />
 					Average rating
 					<span class="ml-1 font-semibold text-gray-900 dark:text-white">
@@ -165,7 +179,7 @@ const confirmRemoveMovie = () => {
 			</template>
 		</EmptyState>
 
-		<!-- Delete confirmation -->
+		<!-- Delete movie confirmation -->
 		<ConfirmDialog
 			:open="movieToDelete !== null"
 			title="Delete movie?"
@@ -173,6 +187,15 @@ const confirmRemoveMovie = () => {
 			confirm-label="Delete"
 			@confirm="confirmRemoveMovie"
 			@cancel="cancelRemoveMovie"
+		/>
+
+		<!-- Remove rating confirmation -->
+		<ConfirmDialog
+			:open="isRemoveRatingOpen"
+			title="Remove all ratings?"
+			confirm-label="Remove"
+			@confirm="confirmRemoveRating"
+			@cancel="cancelRemoveRating"
 		/>
 	</div>
 </template>

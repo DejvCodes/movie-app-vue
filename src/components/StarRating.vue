@@ -7,6 +7,7 @@ withDefaults(
 	defineProps<{
 		rating: number;
 		readonly?: boolean;
+		label?: string;
 	}>(),
 	{
 		readonly: false,
@@ -17,10 +18,9 @@ const emit = defineEmits<{
 	rate: [rating: number];
 }>();
 
-const starClass = (star: number, rating: number) => [
-	'w-5 h-5',
-	star <= rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600',
-];
+const starClass = (star: number, rating: number) => {
+	return ['w-5 h-5', star <= rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'];
+};
 </script>
 
 <template>
@@ -39,6 +39,8 @@ const starClass = (star: number, rating: number) => [
 	<div
 		v-else
 		class="flex gap-0.5"
+		role="group"
+		:aria-label="label"
 	>
 		<button
 			v-for="star in MAX_RATING"

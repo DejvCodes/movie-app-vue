@@ -12,9 +12,7 @@ withDefaults(
 </script>
 
 <template>
-	<div
-		class="flex flex-col items-center justify-center gap-3 px-4 py-16 text-center border border-gray-300 border-dashed rounded-xl dark:border-gray-700"
-	>
+	<div class="flex flex-col items-center justify-center gap-3 px-4 py-16 text-center border border-gray-300 border-dashed rounded-xl dark:border-gray-700">
 		<div
 			v-if="$slots.icon"
 			class="text-gray-400 dark:text-gray-500"
