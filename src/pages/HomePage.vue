@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import data from '@/data.json';
 import { computed, ref } from 'vue';
 import { APP_TITLE } from '@/constants';
 import { StarOffIcon } from '@lucide/vue';
@@ -12,13 +11,14 @@ import ConfirmDialog from '@/components/ConfirmDialog.vue';
 import EmptyState from '@/components/EmptyState.vue';
 import { useToast } from '@/composables/useToast';
 import { useDarkMode } from '@/composables/useDarkMode';
+import { useMovies } from '@/composables/useMovies';
 
 const { showToast } = useToast();
 const { isDark, toggleDarkMode } = useDarkMode();
+const { movies, updateRating, removeAllRatings, removeMovie } = useMovies();
 
-const movies = ref<Movie[]>(data.items);
 const movieToDelete = ref<Movie | null>(null);
-const isRemoveRatingOpen = ref(false);
+const isRemoveRatingOpen = ref<boolean>(false);
 
 // Total number of movies
 const totalMovies = computed(() => movies.value.length);
@@ -30,16 +30,6 @@ const averageRating = computed(() => {
 
 // True if at least one movie has a rating
 const hasRatings = computed(() => movies.value.some((movie) => movie.rating > 0));
-
-// Set a new rating for a single movie
-const updateRating = (id: number, rating: number) => {
-	movies.value = movies.value.map((movie) => {
-		if (movie.id === id) {
-			movie.rating = rating;
-		}
-		return movie;
-	});
-};
 
 // Open the remove rating confirmation
 const askToRemoveRating = () => {
@@ -53,10 +43,7 @@ const cancelRemoveRating = () => {
 
 // Reset ratings of all movies to 0 and close the confirmation
 const confirmRemoveRating = () => {
-	movies.value = movies.value.map((movie) => {
-		movie.rating = 0;
-		return movie;
-	});
+	removeAllRatings();
 	isRemoveRatingOpen.value = false;
 
 	showToast('All ratings removed');
@@ -75,8 +62,7 @@ const cancelRemoveMovie = () => {
 // Delete the movie and close the confirmation
 const confirmRemoveMovie = () => {
 	if (movieToDelete.value) {
-		const id = movieToDelete.value.id;
-		movies.value = movies.value.filter((movie) => movie.id !== id);
+		removeMovie(movieToDelete.value.id);
 
 		showToast(`${movieToDelete.value.title} deleted`);
 	}
