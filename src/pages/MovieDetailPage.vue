@@ -4,7 +4,8 @@ import { APP_TITLE } from '@/constants';
 import data from '@/data.json';
 import type { Movie } from '@/types/movie';
 import StarRating from '@/components/StarRating.vue';
-import { ArrowLeftIcon } from '@heroicons/vue/24/outline';
+import EmptyState from '@/components/EmptyState.vue';
+import { ArrowLeftIcon, QuestionMarkCircleIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps<{
 	id: number;
@@ -65,16 +66,16 @@ watchEffect(() => {
 		</article>
 
 		<!-- Not found -->
-		<div
+		<EmptyState
 			v-else
-			class="mt-8 text-center"
+			title="Movie not found"
+			heading-tag="h1"
+			description="The movie you are looking for does not exist."
+			class="mt-8"
 		>
-			<h1 class="text-2xl font-bold text-gray-900 dark:text-white">
-				Movie not found
-			</h1>
-			<p class="mt-2 text-gray-500 dark:text-gray-400">
-				The movie you are looking for does not exist.
-			</p>
-		</div>
+			<template #icon>
+				<QuestionMarkCircleIcon class="w-12 h-12" />
+			</template>
+		</EmptyState>
 	</div>
 </template>

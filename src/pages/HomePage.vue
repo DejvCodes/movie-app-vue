@@ -8,6 +8,7 @@ import { FilmIcon, MoonIcon, PlusIcon, SunIcon } from '@heroicons/vue/24/outline
 import MovieItem from '@/components/MovieItem.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import ConfirmDialog from '@/components/ConfirmDialog.vue';
+import EmptyState from '@/components/EmptyState.vue';
 import { useToast } from '@/composables/useToast';
 import { useDarkMode } from '@/composables/useDarkMode';
 
@@ -22,6 +23,8 @@ const totalMovies = computed(() => movies.value.length);
 const averageRating = computed(() => {
 	return movies.value.reduce((sum, movie) => sum + movie.rating, 0) / (movies.value.length || 1);
 });
+
+const hasRatings = computed(() => movies.value.some((movie) => movie.rating > 0));
 
 const updateRating = (id: number, rating: number) => {
 	movies.value = movies.value.map((movie) => {
@@ -91,6 +94,7 @@ const confirmRemoveMovie = () => {
 				<!-- Remove Rating button -->
 				<BaseButton
 					variant="outline"
+					:disabled="!hasRatings"
 					@click="removeRating"
 				>
 					<StarOffIcon class="w-4 h-4" :stroke-width="1.5" />
@@ -141,18 +145,15 @@ const confirmRemoveMovie = () => {
 		</div>
 
 		<!-- Empty state -->
-		<div
+		<EmptyState
 			v-else
-			class="flex flex-col items-center justify-center gap-3 px-4 py-16 text-center border border-gray-300 border-dashed rounded-xl dark:border-gray-700"
+			title="No movies yet"
+			description="Your list is empty. Add a movie to get started."
 		>
-			<FilmIcon class="w-12 h-12 text-gray-400 dark:text-gray-500" />
-			<h2 class="text-lg font-semibold">
-				No movies yet
-			</h2>
-			<p class="text-sm text-gray-500 dark:text-gray-400">
-				Your list is empty. Add a movie to get started.
-			</p>
-		</div>
+			<template #icon>
+				<FilmIcon class="w-12 h-12" />
+			</template>
+		</EmptyState>
 
 		<!-- Delete confirmation -->
 		<ConfirmDialog
