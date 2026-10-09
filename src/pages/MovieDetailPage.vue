@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { computed, watchEffect } from 'vue';
 import { APP_TITLE } from '@/constants';
-import data from '@/data.json';
-import type { Movie } from '@/types/movie';
+import { useMovies } from '@/composables/useMovies';
 import StarRating from '@/components/StarRating.vue';
 import EmptyState from '@/components/EmptyState.vue';
 import { ArrowLeftIcon, QuestionMarkCircleIcon } from '@heroicons/vue/24/outline';
@@ -11,10 +10,10 @@ const props = defineProps<{
 	id: number;
 }>();
 
-const movies: Movie[] = data.items;
+const { getMovie } = useMovies();
 
 // Movie matching the id from the URL (undefined if not found)
-const movie = computed(() => movies.find((m) => m.id === props.id));
+const movie = computed(() => getMovie(props.id));
 
 // Update the browser tab title whenever the movie changes
 watchEffect(() => {
