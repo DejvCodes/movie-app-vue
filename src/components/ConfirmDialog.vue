@@ -54,33 +54,32 @@ const onBackdropClick = (event: MouseEvent) => {
 	<dialog ref="dialog"
 		class="w-full max-w-md p-0 text-gray-900 bg-white border border-gray-200 rounded-2xl dark:text-gray-100 dark:bg-slate-900 dark:border-gray-800 backdrop:bg-black/60"
 		@cancel.prevent="cancel"
-		@click="onBackdropClick">
+		@click="onBackdropClick"
+	>
 		<div class="p-6">
 			<h2 class="text-xl font-bold text-gray-900 dark:text-white">
 				{{ title }}
 			</h2>
+
 			<p class="mt-2 text-gray-600 dark:text-gray-300">
+				<!-- prettier-ignore -->
 				<template v-if="itemName">
 					Are you sure you want to delete
 					<span class="font-semibold text-gray-900 dark:text-white">{{ itemName }}</span>?
 				</template>
+
 				<template v-else>
 					Are you sure?
 				</template>
+				
 				This action cannot be undone.
 			</p>
 
 			<div class="flex justify-end gap-3 mt-4">
-				<BaseButton
-					variant="outline"
-					@click="cancel"
-				>
+				<BaseButton variant="outline" @click="cancel">
 					{{ cancelLabel }}
 				</BaseButton>
-				<BaseButton
-					variant="danger"
-					@click="confirm"
-				>
+				<BaseButton variant="danger" @click="confirm">
 					{{ confirmLabel }}
 				</BaseButton>
 			</div>
