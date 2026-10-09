@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import data from '../data.json';
+import data from '@/data.json';
 import { computed, ref } from 'vue';
 import { StarOffIcon } from '@lucide/vue';
-import type { Movie } from '../types/movie';
+import type { Movie } from '@/types/movie';
 import { StarIcon } from '@heroicons/vue/24/solid';
 import { MoonIcon, PlusIcon, SunIcon } from '@heroicons/vue/24/outline';
-import MovieItem from '../components/MovieItem.vue';
-import BaseButton from '../components/BaseButton.vue';
-import ConfirmDialog from '../components/ConfirmDialog.vue';
-import { useToast } from '../composables/useToast';
-import { useDarkMode } from '../composables/useDarkMode';
+import MovieItem from '@/components/MovieItem.vue';
+import BaseButton from '@/components/BaseButton.vue';
+import ConfirmDialog from '@/components/ConfirmDialog.vue';
+import { useToast } from '@/composables/useToast';
+import { useDarkMode } from '@/composables/useDarkMode';
 
 const { showToast } = useToast();
 const { isDark, toggleDarkMode } = useDarkMode();

@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import data from '../data.json';
-import type { Movie } from '../types/movie';
-import StarRating from '../components/StarRating.vue';
+import { computed, watchEffect } from 'vue';
+import { APP_TITLE } from '@/constants';
+import data from '@/data.json';
+import type { Movie } from '@/types/movie';
+import StarRating from '@/components/StarRating.vue';
 import { ArrowLeftIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps<{
@@ -12,6 +13,10 @@ const props = defineProps<{
 const movies: Movie[] = data.items;
 
 const movie = computed(() => movies.find((m) => m.id === props.id));
+
+watchEffect(() => {
+	document.title = `${movie.value?.title ?? 'Movie not found'} • ${APP_TITLE}`;
+});
 </script>
 
 <template>
@@ -36,7 +41,7 @@ const movie = computed(() => movies.find((m) => m.id === props.id));
 
 			<div class="text-center md:text-left">
 				<p class="text-base tracking-wide text-gray-500 dark:text-gray-400">
-					{{ movie.genres.join(' · ') }}
+					{{ movie.genres.join(' • ') }}
 				</p>
 
 				<h1 class="mt-2 text-4xl font-bold tracking-tight text-gray-900 md:text-5xl dark:text-white">

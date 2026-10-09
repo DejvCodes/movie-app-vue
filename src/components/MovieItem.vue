@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { Movie } from '../types/movie';
-import StarRating from './StarRating.vue';
-import MovieStarRating from './MovieStarRating.vue';
+import { computed } from 'vue';
+import type { Movie } from '@/types/movie';
+import StarRating from '@/components/StarRating.vue';
+import MovieStarRating from '@/components/MovieStarRating.vue';
 import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps<{
@@ -12,6 +13,8 @@ const emit = defineEmits<{
 	rate: [id: number, rating: number];
 	delete: [id: number];
 }>();
+
+const detailRoute = computed(() => ({ name: 'movie', params: { id: props.movie.id } }));
 
 const updateRating = (rating: number) => {
 	emit('rate', props.movie.id, rating);
@@ -25,12 +28,18 @@ const deleteMovie = (id: number) => {
 <template>
 	<article class="flex flex-col overflow-hidden bg-white border border-gray-200 shadow-sm rounded-2xl dark:shadow-none dark:bg-slate-900 dark:border-gray-800">
 		<!-- Movie image and rating -->
-		<div class="relative">
-			<img
-				:src="movie.image"
-				:alt="movie.title"
-				class="object-cover w-full h-60 sm:h-80"
-			/>
+		<div class="relative overflow-hidden">
+			<RouterLink
+				:to="detailRoute"
+				tabindex="-1"
+				aria-hidden="true"
+			>
+				<img
+					:src="movie.image"
+					:alt="movie.title"
+					class="object-cover w-full transition duration-300 h-60 sm:h-80 hover:scale-105"
+				/>
+			</RouterLink>
 			<MovieStarRating
 				:rating="movie.rating"
 				class="absolute top-3 right-3"
@@ -40,7 +49,12 @@ const deleteMovie = (id: number) => {
 		<!-- Movie details -->
 		<div class="flex flex-col flex-1 p-5">
 			<h2 class="text-2xl font-bold text-gray-900 dark:text-white">
-				{{ movie.title }}
+				<RouterLink
+					:to="detailRoute"
+					class="transition rounded hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 dark:hover:text-indigo-300"
+				>
+					{{ movie.title }}
+				</RouterLink>
 			</h2>
 			<ul class="flex flex-wrap gap-2 mt-3">
 				<li
@@ -52,7 +66,7 @@ const deleteMovie = (id: number) => {
 				</li>
 			</ul>
 
-			<p class="my-4 leading-relaxed text-gray-600 text-[15px] dark:text-gray-300">
+			<p class="my-4 leading-relaxed text-gray-600 text-[15px] line-clamp-3 dark:text-gray-300">
 				{{ movie.description }}
 			</p>
 
@@ -82,7 +96,7 @@ const deleteMovie = (id: number) => {
 						<TrashIcon class="w-4 h-4" aria-hidden="true" />
 					</button>
 					<RouterLink
-						:to="{name: 'movie', params: {id: movie.id } }"
+						:to="detailRoute"
 						class="flex items-center justify-center w-10 h-10 text-blue-600 transition bg-blue-100 rounded-lg hover:bg-blue-200 dark:text-blue-300 dark:bg-blue-900/60 dark:hover:bg-blue-800"
 						aria-label="Movie detail"
 					>
