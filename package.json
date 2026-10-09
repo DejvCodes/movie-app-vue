@@ -1,27 +1,30 @@
 {
 	"name": "movie-app-vue",
-	"version": "0.0.0",
+	"version": "1.0.0",
+	"private": true,
+	"description": "Movie collection app built with Vue 3, TypeScript and Tailwind CSS",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/DejvCodes/movie-app-vue.git"
+	},
 	"scripts": {
 		"dev": "vite",
 		"build": "vue-tsc --noEmit && vite build",
 		"preview": "vite preview --port 4173",
 		"lint": "eslint . --fix",
-		"format": "prettier --write src/",
+		"format": "prettier --write src/ *.js *.mjs",
+		"format:check": "prettier --check src/ *.js *.mjs",
 		"type-check": "vue-tsc --noEmit"
 	},
 	"dependencies": {
 		"@heroicons/vue": "^2.2.0",
 		"@lucide/vue": "^1.52.0",
-		"@tailwindcss/typography": "^0.5.16",
-		"happy-dom": "^17.1.0",
 		"vue": "^3.5.13",
 		"vue-router": "^4.6.4"
 	},
 	"devDependencies": {
 		"@eslint/js": "^9.18.0",
-		"@rushstack/eslint-patch": "^1.10.5",
 		"@vitejs/plugin-vue": "^5.2.1",
-		"@vitest/eslint-plugin": "1.1.25",
 		"@vue/eslint-config-prettier": "^10.2.0",
 		"@vue/eslint-config-typescript": "^14.9.0",
 		"@vue/tsconfig": "^0.7.0",

@@ -1,7 +1,6 @@
-import pluginVue from 'eslint-plugin-vue'
-import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript'
-import pluginVitest from '@vitest/eslint-plugin'
-import skipFormatting from '@vue/eslint-config-prettier/skip-formatting'
+import pluginVue from 'eslint-plugin-vue';
+import { defineConfigWithVueTs, vueTsConfigs } from '@vue/eslint-config-typescript';
+import skipFormatting from '@vue/eslint-config-prettier/skip-formatting';
 
 export default defineConfigWithVueTs(
 	{
@@ -14,12 +13,16 @@ export default defineConfigWithVueTs(
 		ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
 	},
 
-	pluginVue.configs['flat/essential'],
+	pluginVue.configs['flat/recommended'],
 	vueTsConfigs.recommended,
 
 	{
-		...pluginVitest.configs.recommended,
-		files: ['src/**/__tests__/*'],
+		name: 'app/rules',
+		rules: {
+			// Optional TypeScript props are undefined by default, no need for an explicit default
+			'vue/require-default-prop': 'off',
+		},
 	},
+
 	skipFormatting,
-)
+);
