@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { ref, useId, watch } from 'vue';
 import BaseButton from '@/components/BaseButton.vue';
 
 const props = withDefaults(
@@ -31,6 +31,9 @@ const confirm = () => {
 
 const dialog = ref<HTMLDialogElement | null>(null);
 
+const titleId = useId();
+const descriptionId = useId();
+
 watch(
 	() => props.open,
 	(open) => {
@@ -40,6 +43,7 @@ watch(
 			dialog.value?.close();
 		}
 	},
+	{ immediate: true, flush: 'post' },
 );
 
 // Handle click on the backdrop (outside the dialog content)
@@ -52,16 +56,18 @@ const onBackdropClick = (event: MouseEvent) => {
 
 <template>
 	<dialog ref="dialog"
+		:aria-labelledby="titleId"
+		:aria-describedby="descriptionId"
 		class="w-full max-w-md p-0 text-gray-900 bg-white border border-gray-200 rounded-2xl dark:text-gray-100 dark:bg-slate-900 dark:border-gray-800 backdrop:bg-black/60"
 		@cancel.prevent="cancel"
 		@click="onBackdropClick"
 	>
 		<div class="p-6">
-			<h2 class="text-xl font-bold text-gray-900 dark:text-white">
+			<h2 :id="titleId" class="text-xl font-bold text-gray-900 dark:text-white">
 				{{ title }}
 			</h2>
 
-			<p class="mt-2 text-gray-600 dark:text-gray-300">
+			<p :id="descriptionId" class="mt-2 text-gray-600 dark:text-gray-300">
 				<!-- prettier-ignore -->
 				<template v-if="itemName">
 					Are you sure you want to delete
@@ -71,7 +77,7 @@ const onBackdropClick = (event: MouseEvent) => {
 				<template v-else>
 					Are you sure?
 				</template>
-				
+
 				This action cannot be undone.
 			</p>
 

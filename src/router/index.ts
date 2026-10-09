@@ -21,7 +21,7 @@ const router = createRouter({
 			meta: { title: APP_TITLE },
 		},
 		{
-			path: '/:id',
+			path: '/movies/:id(\\d+)',
 			name: 'movie',
 			component: MovieDetailPage,
 			props: (route) => ({ id: Number(route.params.id) }),
