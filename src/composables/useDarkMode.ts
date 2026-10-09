@@ -2,17 +2,14 @@ import { readonly, ref, watchEffect } from 'vue';
 
 const STORAGE_KEY = 'theme';
 
-// Saved choice wins, otherwise follow the system preference
+// Saved choice wins, otherwise dark by default
 const getInitialValue = () => {
 	try {
-		const stored = localStorage.getItem(STORAGE_KEY);
-		if (stored) {
-			return stored === 'dark';
-		}
+		return localStorage.getItem(STORAGE_KEY) !== 'light';
 	} catch {
-		// localStorage is unavailable, fall back to the system preference
+		// localStorage is unavailable, fall back to dark
+		return true;
 	}
-	return window.matchMedia('(prefers-color-scheme: dark)').matches;
 };
 
 const isDark = ref(getInitialValue());
