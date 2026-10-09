@@ -4,7 +4,7 @@ import { computed, ref } from 'vue';
 import { StarOffIcon } from '@lucide/vue';
 import type { Movie } from '@/types/movie';
 import { StarIcon } from '@heroicons/vue/24/solid';
-import { MoonIcon, PlusIcon, SunIcon } from '@heroicons/vue/24/outline';
+import { FilmIcon, MoonIcon, PlusIcon, SunIcon } from '@heroicons/vue/24/outline';
 import MovieItem from '@/components/MovieItem.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import ConfirmDialog from '@/components/ConfirmDialog.vue';
@@ -127,7 +127,10 @@ const confirmRemoveMovie = () => {
 		</div>
 
 		<!-- Movies grid -->
-		<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+		<div
+			v-if="movies.length"
+			class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+		>
 			<MovieItem
 				v-for="movie in movies"
 				:key="movie.id"
@@ -135,6 +138,20 @@ const confirmRemoveMovie = () => {
 				@rate="updateRating"
 				@delete="askToRemoveMovie"
 			/>
+		</div>
+
+		<!-- Empty state -->
+		<div
+			v-else
+			class="flex flex-col items-center justify-center gap-3 px-4 py-16 text-center border border-gray-300 border-dashed rounded-xl dark:border-gray-700"
+		>
+			<FilmIcon class="w-12 h-12 text-gray-400 dark:text-gray-500" />
+			<h2 class="text-lg font-semibold">
+				No movies yet
+			</h2>
+			<p class="text-sm text-gray-500 dark:text-gray-400">
+				Your list is empty. Add a movie to get started.
+			</p>
 		</div>
 
 		<!-- Delete confirmation -->
