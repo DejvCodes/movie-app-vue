@@ -13,8 +13,10 @@ const props = defineProps<{
 
 const movies: Movie[] = data.items;
 
+// Movie matching the id from the URL (undefined if not found)
 const movie = computed(() => movies.find((m) => m.id === props.id));
 
+// Update the browser tab title whenever the movie changes
 watchEffect(() => {
 	document.title = `${movie.value?.title ?? 'Movie not found'} • ${APP_TITLE}`;
 });
@@ -35,11 +37,13 @@ watchEffect(() => {
 			v-if="movie"
 			class="grid gap-8 mt-8 md:gap-12 md:grid-cols-[16rem_1fr] md:items-center"
 		>
+			<!-- Poster -->
 			<img
 				:src="movie.image"
 				:alt="movie.title"
 				class="object-cover w-full max-w-[16rem] mx-auto aspect-[3/4] rounded-2xl shadow-xl shadow-gray-900/10 dark:shadow-black/40 md:max-w-none" />
 
+			<!-- Movie info -->
 			<div class="text-center md:text-left">
 				<p class="text-base tracking-wide text-gray-500 dark:text-gray-400">
 					{{ movie.genres.join(' • ') }}
@@ -49,6 +53,7 @@ watchEffect(() => {
 					{{ movie.title }}
 				</h1>
 
+				<!-- Rating -->
 				<div class="flex items-center justify-center gap-3 mt-4 md:justify-start">
 					<span class="text-sm text-gray-500 dark:text-gray-400">
 						Rating ({{ movie.rating }}/5)

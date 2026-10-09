@@ -18,14 +18,18 @@ const { isDark, toggleDarkMode } = useDarkMode();
 const movies = ref<Movie[]>(data.items);
 const movieToDelete = ref<Movie | null>(null);
 
+// Total number of movies
 const totalMovies = computed(() => movies.value.length);
 
+// Average rating of all movies (0 when the list is empty)
 const averageRating = computed(() => {
 	return movies.value.reduce((sum, movie) => sum + movie.rating, 0) / (movies.value.length || 1);
 });
 
+// True if at least one movie has a rating
 const hasRatings = computed(() => movies.value.some((movie) => movie.rating > 0));
 
+// Set a new rating for a single movie
 const updateRating = (id: number, rating: number) => {
 	movies.value = movies.value.map((movie) => {
 		if (movie.id === id) {
@@ -35,6 +39,7 @@ const updateRating = (id: number, rating: number) => {
 	});
 };
 
+// Reset ratings of all movies to 0
 const removeRating = () => {
 	movies.value = movies.value.map((movie) => {
 		movie.rating = 0;
@@ -44,14 +49,17 @@ const removeRating = () => {
 	showToast('All ratings removed');
 };
 
+// Open the delete confirmation for the given movie
 const askToRemoveMovie = (id: number) => {
 	movieToDelete.value = movies.value.find((movie) => movie.id === id) ?? null;
 };
 
+// Close the delete confirmation without deleting
 const cancelRemoveMovie = () => {
 	movieToDelete.value = null;
 };
 
+// Delete the movie and close the confirmation
 const confirmRemoveMovie = () => {
 	if (movieToDelete.value) {
 		const id = movieToDelete.value.id;
@@ -89,7 +97,9 @@ const confirmRemoveMovie = () => {
 			</BaseButton>
 		</div>
 
+		<!-- Toolbar -->
 		<div class="flex flex-wrap items-end justify-between gap-4 mb-5">
+			<!-- Actions -->
 			<div class="flex gap-3">
 				<!-- Remove Rating button -->
 				<BaseButton
