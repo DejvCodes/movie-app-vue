@@ -4,6 +4,7 @@ const DURATION = 3000;
 
 const message = ref('');
 const visible = ref(false);
+
 let timeout: ReturnType<typeof setTimeout> | undefined;
 
 export const useToast = () => {

@@ -4,7 +4,6 @@ import type { Movie } from '@/types/movie';
 
 const STORAGE_KEY = 'movies';
 
-// Load movies from localStorage, otherwise use a copy of data.json
 const loadMovies = (): Movie[] => {
 	try {
 		const saved = localStorage.getItem(STORAGE_KEY);

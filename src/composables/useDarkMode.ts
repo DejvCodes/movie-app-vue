@@ -2,7 +2,6 @@ import { readonly, ref, watchEffect } from 'vue';
 
 const STORAGE_KEY = 'theme';
 
-// Saved choice wins, otherwise dark by default
 const getInitialValue = () => {
 	try {
 		return localStorage.getItem(STORAGE_KEY) !== 'light';
