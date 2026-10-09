@@ -7,7 +7,7 @@
 ## 🏃🏻 How to Run this App
 
 ## 💻 Tech Stack
-[![My Skills](https://skillicons.dev/icons?i=html,css,ts,vue,tailwind,vite)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=ts,vue,tailwind,vite)](https://skillicons.dev)
 
 ## 📁 Project Structure
 
