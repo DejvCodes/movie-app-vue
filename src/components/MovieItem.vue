@@ -11,6 +11,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
 	rate: [id: number, rating: number];
+	edit: [id: number];
 	delete: [id: number];
 }>();
 
@@ -18,6 +19,10 @@ const detailRoute = computed(() => ({ name: 'movie', params: { id: props.movie.i
 
 const updateRating = (rating: number) => {
 	emit('rate', props.movie.id, rating);
+};
+
+const editMovie = () => {
+	emit('edit', props.movie.id);
 };
 
 const deleteMovie = () => {
@@ -89,6 +94,7 @@ const deleteMovie = () => {
 						type="button"
 						class="flex items-center justify-center w-10 h-10 text-indigo-600 transition bg-indigo-100 rounded-lg hover:bg-indigo-200 dark:text-indigo-300 dark:bg-indigo-900/60 dark:hover:bg-indigo-800"
 						:aria-label="`Edit ${movie.title}`"
+						@click="editMovie"
 					>
 						<PencilIcon
 							class="w-4 h-4"
