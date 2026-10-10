@@ -57,9 +57,10 @@ const onBackdropClick = (event: MouseEvent) => {
 <template>
 	<dialog
 		ref="dialog"
+		autofocus
 		:aria-labelledby="titleId"
 		:aria-describedby="descriptionId"
-		class="w-[calc(100%-8px)] max-w-md p-0 text-gray-900 bg-white border border-gray-200 rounded-2xl dark:text-gray-100 dark:bg-slate-900 dark:border-gray-800 backdrop:bg-black/60"
+		class="w-[calc(100%-8px)] max-w-md p-0 focus:outline-none text-gray-900 bg-white border border-gray-200 rounded-2xl dark:text-gray-100 dark:bg-slate-900 dark:border-gray-800 backdrop:bg-black/60"
 		@cancel.prevent="cancel"
 		@click="onBackdropClick"
 	>

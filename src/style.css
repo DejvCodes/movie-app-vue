@@ -5,3 +5,7 @@
 .dark {
 	color-scheme: dark;
 }
+
+html:has(dialog[open]) {
+	overflow: hidden;
+}

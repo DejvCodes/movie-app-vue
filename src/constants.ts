@@ -11,6 +11,5 @@ export const GENRES = [
 	'Fantasy',
 	'Horror',
 	'Romance',
-	'Sci-Fi',
-	'Thriller'
+	'Sci-Fi'
 ];

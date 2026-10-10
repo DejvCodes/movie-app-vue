@@ -92,116 +92,119 @@ const labelClass = 'block mb-1 text-sm font-medium text-gray-700 dark:text-gray-
 <template>
 	<dialog
 		ref="dialog"
+		autofocus
 		:aria-labelledby="titleId"
-		class="w-full max-w-lg p-0 text-gray-900 bg-white border border-gray-200 rounded-2xl dark:text-gray-100 dark:bg-slate-900 dark:border-gray-800 backdrop:bg-black/60"
+		class="w-full max-w-lg p-0 focus:outline-none overflow-y-auto overscroll-contain text-gray-900 bg-white border border-gray-200 rounded-2xl dark:text-gray-100 dark:bg-slate-900 dark:border-gray-800 backdrop:bg-black/60 max-sm:m-0 max-sm:h-dvh max-sm:max-h-none max-sm:max-w-none max-sm:border-0 max-sm:rounded-none"
 		@cancel.prevent="cancel"
 		@click="onBackdropClick"
 	>
 		<form
-			class="flex flex-col gap-4 p-6"
+			class="flex flex-col min-h-full"
 			@submit.prevent="submit"
 		>
-			<h2
-				:id="titleId"
-				class="text-xl font-bold text-gray-900 dark:text-white"
-			>
-				{{ isEdit ? 'Edit movie' : 'Add movie' }}
-			</h2>
-
-			<!-- Title -->
-			<div>
-				<label
-					:for="`${fieldId}-title`"
-					:class="labelClass"
+			<div class="flex flex-col gap-4 p-6">
+				<h2
+					:id="titleId"
+					class="text-xl font-bold text-gray-900 dark:text-white"
 				>
-					Title
-				</label>
-				<input
-					:id="`${fieldId}-title`"
-					v-model="form.title"
-					type="text"
-					required
-					:class="inputClass"
-				/>
-			</div>
+					{{ isEdit ? 'Edit movie' : 'Add movie' }}
+				</h2>
 
-			<!-- Image -->
-			<div>
-				<label
-					:for="`${fieldId}-image`"
-					:class="labelClass"
-				>
-					Image URL
-				</label>
-				<input
-					:id="`${fieldId}-image`"
-					v-model="form.image"
-					type="text"
-					required
-					placeholder="https://..."
-					:class="inputClass"
-				/>
-			</div>
-
-			<!-- Genres -->
-			<fieldset>
-				<legend :class="labelClass">Genres</legend>
-				<div class="flex flex-wrap gap-2">
+				<!-- Title -->
+				<div>
 					<label
-						v-for="genre in GENRES"
-						:key="genre"
-						:class="[
-							'px-3 py-1 text-sm transition border rounded-full cursor-pointer has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-indigo-400',
-							form.genres.includes(genre)
-								? 'text-indigo-700 bg-indigo-100 border-indigo-300 dark:bg-indigo-900/60 dark:text-indigo-200 dark:border-indigo-700'
-								: 'text-gray-600 border-gray-300 hover:bg-gray-100 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-800',
-						]"
+						:for="`${fieldId}-title`"
+						:class="labelClass"
 					>
-						<input
-							v-model="form.genres"
-							type="checkbox"
-							:value="genre"
-							class="sr-only"
-						/>
-						{{ genre }}
+						Title
 					</label>
+					<input
+						:id="`${fieldId}-title`"
+						v-model="form.title"
+						type="text"
+						required
+						:class="inputClass"
+					/>
 				</div>
-				<p
-					v-if="genresError"
-					class="mt-1 text-sm text-red-600 dark:text-red-400"
-				>
-					Select at least one genre.
-				</p>
-			</fieldset>
 
-			<!-- Description -->
-			<div>
-				<label
-					:for="`${fieldId}-description`"
-					:class="labelClass"
-				>
-					Description
-				</label>
-				<textarea
-					:id="`${fieldId}-description`"
-					v-model="form.description"
-					rows="4"
-					required
-					:class="inputClass"
-				/>
+				<!-- Image -->
+				<div>
+					<label
+						:for="`${fieldId}-image`"
+						:class="labelClass"
+					>
+						Image URL
+					</label>
+					<input
+						:id="`${fieldId}-image`"
+						v-model="form.image"
+						type="text"
+						required
+						placeholder="https://..."
+						:class="inputClass"
+					/>
+				</div>
+
+				<!-- Genres -->
+				<fieldset>
+					<legend :class="labelClass">Genres</legend>
+					<div class="flex flex-wrap gap-2">
+						<label
+							v-for="genre in GENRES"
+							:key="genre"
+							:class="[
+								'px-3 py-1 text-sm transition border rounded-full cursor-pointer has-[:focus-visible]:ring-2 has-[:focus-visible]:ring-indigo-400',
+								form.genres.includes(genre)
+									? 'text-indigo-700 bg-indigo-100 border-indigo-300 dark:bg-indigo-900/60 dark:text-indigo-200 dark:border-indigo-700'
+									: 'text-gray-600 border-gray-300 hover:bg-gray-100 dark:text-gray-300 dark:border-gray-700 dark:hover:bg-gray-800',
+							]"
+						>
+							<input
+								v-model="form.genres"
+								type="checkbox"
+								:value="genre"
+								class="sr-only"
+							/>
+							{{ genre }}
+						</label>
+					</div>
+					<p
+						v-if="genresError"
+						class="mt-1 text-sm text-red-600 dark:text-red-400"
+					>
+						Select at least one genre.
+					</p>
+				</fieldset>
+
+				<!-- Description -->
+				<div>
+					<label
+						:for="`${fieldId}-description`"
+						:class="labelClass"
+					>
+						Description
+					</label>
+					<textarea
+						:id="`${fieldId}-description`"
+						v-model="form.description"
+						rows="4"
+						required
+						:class="inputClass"
+					/>
+				</div>
+
+				<!-- Rating -->
+				<div>
+					<span :class="labelClass">Rating ({{ form.rating }}/5)</span>
+					<StarRating
+						:rating="form.rating"
+						label="Movie rating"
+						@rate="form.rating = $event"
+					/>
+				</div>
 			</div>
 
-			<!-- Rating -->
-			<div>
-				<span :class="labelClass">Rating ({{ form.rating }}/5)</span>
-				<StarRating
-					:rating="form.rating"
-					label="Movie rating"
-					@rate="form.rating = $event"
-				/>
-			</div>
-
-			<div class="flex justify-end gap-3 mt-2">
+			<div class="sticky bottom-0 flex justify-end gap-3 px-6 py-4 mt-auto bg-white border-t border-gray-200 dark:bg-slate-900 dark:border-gray-800">
 				<BaseButton
 					variant="outline"
 					@click="cancel"

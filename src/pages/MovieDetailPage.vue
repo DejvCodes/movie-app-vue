@@ -22,7 +22,7 @@ watchEffect(() => {
 </script>
 
 <template>
-	<div class="flex flex-col justify-center max-w-4xl min-h-screen px-4 py-10 mx-auto">
+	<div class="flex flex-col justify-center max-w-4xl min-h-svh px-4 py-10 mx-auto">
 		<!-- Back link -->
 		<RouterLink
 			:to="{ name: 'home' }"

@@ -13,6 +13,9 @@ declare module 'vue-router' {
 const router = createRouter({
 	history: createWebHistory(),
 
+	// Start new pages at the top, restore the position on back/forward
+	scrollBehavior: (_to, _from, savedPosition) => savedPosition ?? { top: 0 },
+
 	routes: [
 		{
 			path: '/',
