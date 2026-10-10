@@ -2,12 +2,13 @@
 import { computed, ref } from 'vue';
 import { APP_TITLE } from '@/constants';
 import { StarOffIcon } from '@lucide/vue';
-import type { Movie } from '@/types/movie';
+import type { Movie, MovieFormData } from '@/types/movie';
 import { StarIcon } from '@heroicons/vue/24/solid';
 import { FilmIcon, MoonIcon, PlusIcon, SunIcon } from '@heroicons/vue/24/outline';
 import MovieItem from '@/components/MovieItem.vue';
 import BaseButton from '@/components/BaseButton.vue';
 import ConfirmDialog from '@/components/ConfirmDialog.vue';
+import MovieFormDialog from '@/components/MovieFormDialog.vue';
 import EmptyState from '@/components/EmptyState.vue';
 import { useToast } from '@/composables/useToast';
 import { useDarkMode } from '@/composables/useDarkMode';
@@ -15,10 +16,12 @@ import { useMovies } from '@/composables/useMovies';
 
 const { showToast } = useToast();
 const { isDark, toggleDarkMode } = useDarkMode();
-const { movies, updateRating, removeAllRatings, removeMovie } = useMovies();
+const { movies, getMovie, addMovie, updateMovie, updateRating, removeAllRatings, removeMovie } = useMovies();
 
 const movieToDelete = ref<Movie | null>(null);
 const isRemoveRatingOpen = ref<boolean>(false);
+const isFormOpen = ref<boolean>(false);
+const movieToEdit = ref<Movie | null>(null);
 
 // Total number of movies
 const totalMovies = computed(() => movies.value.length);
@@ -47,6 +50,35 @@ const confirmRemoveRating = () => {
 	isRemoveRatingOpen.value = false;
 
 	showToast('All ratings removed');
+};
+
+// Open the form for a new movie
+const openAddForm = () => {
+	movieToEdit.value = null;
+	isFormOpen.value = true;
+};
+
+// Open the form filled with the given movie
+const openEditForm = (id: number) => {
+	movieToEdit.value = getMovie(id) ?? null;
+	isFormOpen.value = true;
+};
+
+// Close the form without saving
+const closeForm = () => {
+	isFormOpen.value = false;
+};
+
+// Add or update the movie and close the form
+const saveMovie = (data: MovieFormData) => {
+	if (movieToEdit.value) {
+		updateMovie(movieToEdit.value.id, data);
+		showToast(`${data.title} updated`);
+	} else {
+		addMovie(data);
+		showToast(`${data.title} added`);
+	}
+	isFormOpen.value = false;
 };
 
 // Open the delete confirmation for the given movie
@@ -114,7 +146,10 @@ const confirmRemoveMovie = () => {
 				</BaseButton>
 
 				<!-- Add Movie button -->
-				<BaseButton variant="primary">
+				<BaseButton
+					variant="primary"
+					@click="openAddForm"
+				>
 					<PlusIcon class="w-5 h-5" />
 					Add Movie
 				</BaseButton>
@@ -150,6 +185,7 @@ const confirmRemoveMovie = () => {
 				:key="movie.id"
 				:movie="movie"
 				@rate="updateRating"
+				@edit="openEditForm"
 				@delete="askToRemoveMovie"
 			/>
 		</div>
@@ -164,6 +200,14 @@ const confirmRemoveMovie = () => {
 				<FilmIcon class="w-12 h-12" />
 			</template>
 		</EmptyState>
+
+		<!-- Add / edit movie form -->
+		<MovieFormDialog
+			:open="isFormOpen"
+			:movie="movieToEdit"
+			@submit="saveMovie"
+			@cancel="closeForm"
+		/>
 
 		<!-- Delete movie confirmation -->
 		<ConfirmDialog
