@@ -6,3 +6,5 @@ export interface Movie {
 	description: string;
 	rating: number;
 }
+
+export type MovieFormData = Omit<Movie, 'id'>;
