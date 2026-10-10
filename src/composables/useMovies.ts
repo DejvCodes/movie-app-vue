@@ -1,6 +1,6 @@
 import { ref, watch } from 'vue';
 import data from '@/data.json';
-import type { Movie } from '@/types/movie';
+import type { Movie, MovieFormData } from '@/types/movie';
 
 const STORAGE_KEY = 'movies';
 
@@ -58,9 +58,25 @@ export const useMovies = () => {
 		movies.value = movies.value.filter((movie) => movie.id !== id);
 	};
 
+	// Add a new movie with the next free id
+	const addMovie = (data: MovieFormData) => {
+		const id = Date.now();
+		movies.value.push({ id, ...data });
+	};
+
+	// Replace the details of an existing movie
+	const updateMovie = (id: number, data: MovieFormData) => {
+		const movie = getMovie(id);
+		if (movie) {
+			Object.assign(movie, data);
+		}
+	};
+
 	return {
 		movies,
 		getMovie,
+		addMovie,
+		updateMovie,
 		updateRating,
 		removeAllRatings,
 		removeMovie,
