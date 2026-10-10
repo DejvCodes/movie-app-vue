@@ -25,6 +25,12 @@ const starClass = (star: number, rating: number) => {
 	return ['w-5 h-5', star <= rating ? 'text-yellow-400' : 'text-gray-300 dark:text-gray-600'];
 };
 
+const hover = (event: PointerEvent, star: number) => {
+	if (event.pointerType === 'mouse') {
+		hoveredStar.value = star;
+	}
+};
+
 const rate = (star: number) => {
 	emit('rate', star === props.rating ? 0 : star);
 };
@@ -48,7 +54,7 @@ const rate = (star: number) => {
 		class="flex gap-0.5"
 		role="group"
 		:aria-label="label"
-		@mouseleave="hoveredStar = 0"
+		@pointerleave="hoveredStar = 0"
 	>
 		<button
 			v-for="star in MAX_RATING"
@@ -56,7 +62,7 @@ const rate = (star: number) => {
 			type="button"
 			class="cursor-pointer"
 			:aria-label="star === rating ? 'Remove rating' : `Rate ${star} of ${MAX_RATING}`"
-			@mouseenter="hoveredStar = star"
+			@pointerenter="hover($event, star)"
 			@click="rate(star)"
 		>
 			<StarIcon
