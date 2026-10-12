@@ -83,7 +83,7 @@ const saveMovie = (data: MovieFormData) => {
 
 // Open the delete confirmation for the given movie
 const askToRemoveMovie = (id: number) => {
-	movieToDelete.value = movies.value.find((movie) => movie.id === id) ?? null;
+	movieToDelete.value = getMovie(id) ?? null;
 };
 
 // Close the delete confirmation without deleting

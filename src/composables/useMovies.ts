@@ -58,7 +58,7 @@ export const useMovies = () => {
 		movies.value = movies.value.filter((movie) => movie.id !== id);
 	};
 
-	// Add a new movie with the next free id
+	// Add a new movie with a timestamp-based id
 	const addMovie = (data: MovieFormData) => {
 		const id = Date.now();
 		movies.value.push({ id, ...data });

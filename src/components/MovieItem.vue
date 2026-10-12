@@ -3,6 +3,7 @@ import { computed } from 'vue';
 import type { Movie } from '@/types/movie';
 import StarRating from '@/components/StarRating.vue';
 import MovieStarRating from '@/components/MovieStarRating.vue';
+import MoviePoster from '@/components/MoviePoster.vue';
 import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps<{
@@ -39,11 +40,9 @@ const deleteMovie = () => {
 				tabindex="-1"
 				aria-hidden="true"
 			>
-				<img
+				<MoviePoster
 					:src="movie.image"
 					:alt="movie.title"
-					width="800"
-					height="1040"
 					loading="lazy"
 					class="object-cover w-full transition duration-300 h-60 sm:h-80 hover:scale-105"
 				/>

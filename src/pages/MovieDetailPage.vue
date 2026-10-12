@@ -4,6 +4,7 @@ import { APP_TITLE } from '@/constants';
 import { useMovies } from '@/composables/useMovies';
 import StarRating from '@/components/StarRating.vue';
 import EmptyState from '@/components/EmptyState.vue';
+import MoviePoster from '@/components/MoviePoster.vue';
 import { ArrowLeftIcon, QuestionMarkCircleIcon } from '@heroicons/vue/24/outline';
 
 const props = defineProps<{
@@ -41,11 +42,9 @@ watchEffect(() => {
 			class="grid gap-8 mt-8 md:gap-12 md:grid-cols-[16rem_1fr] md:items-center"
 		>
 			<!-- Poster -->
-			<img
+			<MoviePoster
 				:src="movie.image"
 				:alt="movie.title"
-				width="800"
-				height="1040"
 				class="object-cover w-full max-w-[16rem] mx-auto aspect-[3/4] rounded-2xl shadow-xl shadow-gray-900/10 dark:shadow-black/40 md:max-w-none"
 			/>
 
