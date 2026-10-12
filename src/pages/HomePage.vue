@@ -34,12 +34,12 @@ const averageRating = computed(() => {
 // True if at least one movie has a rating
 const hasRatings = computed(() => movies.value.some((movie) => movie.rating > 0));
 
-// Open the remove rating confirmation
+// Open the remove ratings confirmation
 const askToRemoveRating = () => {
 	isRemoveRatingOpen.value = true;
 };
 
-// Close the remove rating confirmation without removing
+// Close the remove ratings confirmation without removing
 const cancelRemoveRating = () => {
 	isRemoveRatingOpen.value = false;
 };
@@ -219,7 +219,7 @@ const confirmRemoveMovie = () => {
 			@cancel="cancelRemoveMovie"
 		/>
 
-		<!-- Remove rating confirmation -->
+		<!-- Remove ratings confirmation -->
 		<ConfirmDialog
 			:open="isRemoveRatingOpen"
 			title="Remove all ratings?"
