@@ -85,7 +85,8 @@ const onBackdropClick = (event: MouseEvent) => {
 	}
 };
 
-const inputClass = 'w-full px-3 py-2 text-base sm:text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:text-white dark:bg-slate-800 dark:border-gray-700';
+const inputClass =
+	'w-full px-3 py-2 text-base sm:text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 dark:text-white dark:bg-slate-800 dark:border-gray-700';
 const labelClass = 'block mb-1 text-sm font-medium text-gray-700 dark:text-gray-300';
 </script>
 
@@ -211,9 +212,7 @@ const labelClass = 'block mb-1 text-sm font-medium text-gray-700 dark:text-gray-
 				>
 					Cancel
 				</BaseButton>
-				<BaseButton
-					type="submit"
-				>
+				<BaseButton type="submit">
 					{{ isEdit ? 'Save changes' : 'Add movie' }}
 				</BaseButton>
 			</div>
