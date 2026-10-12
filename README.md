@@ -80,5 +80,8 @@ tsconfig.json                  # TypeScript configuration
 LICENSE                        # MIT License
 ```
 
+## 🌐 Live Demo
+<a href="https://my-movies-dejvcodes.netlify.app/">Movie App</a>
+
 ## 🔐 License
 [MIT License](LICENSE)
